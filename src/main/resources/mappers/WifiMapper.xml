@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.mission.mapper.WifiMapper">
+
+    <resultMap id="wifiVO" type="kr.co.mission.domain.WifiVO">
+        <id property="wifi_id" column="wifi_id"/>
+        <result property="no" column="X_SWIFI_MGR_NO"/>
+        <result property="wrdofc" column="X_SWIFI_WRDOFC"/>
+        <result property="nm" column="X_SWIFI_MAIN_NM"/>
+        <result property="adres1" column="X_SWIFI_ADRES1"/>
+        <result property="adres2" column="X_SWIFI_ADRES2"/>
+        <result property="floor" column="X_SWIFI_INSTL_FLOOR"/>
+        <result property="ty" column="X_SWIFI_INSTL_TY"/>
+        <result property="mby" column="X_SWIFI_INSTL_MBY"/>
+        <result property="se" column="X_SWIFI_SVC_SE"/>
+        <result property="cmcwr" column="X_SWIFI_CMCWR"/>
+        <result property="year" column="X_SWIFI_CNSTC_YEAR"/>
+        <result property="door" column="X_SWIFI_INOUT_DOOR"/>
+        <result property="remars3" column="X_SWIFI_REMARS3"/>
+        <result property="lat" column="LAT"/>
+        <result property="lnt" column="LNT"/>
+        <result property="dttm" column="WORK_DTTM"/>
+    </resultMap>
+
+    <resultMap id="historyVO" type="kr.co.mission.domain.HistoryVO">
+        <result property="h_id" column="h_id"></result>
+        <result property="h_x" column="h_x"></result>
+        <result property="h_y" column="h_y"></result>
+        <result property="h_date" column="h_date"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="kr.co.mission.dto.WifiDTO">
+        INSERT INTO wifi_info (X_SWIFI_MGR_NO,
+                               X_SWIFI_WRDOFC,
+                               X_SWIFI_MAIN_NM,
+                               X_SWIFI_ADRES1,
+                               X_SWIFI_ADRES2,
+                               X_SWIFI_INSTL_FLOOR,
+                               X_SWIFI_INSTL_TY,
+                               X_SWIFI_INSTL_MBY,
+                               X_SWIFI_SVC_SE,
+                               X_SWIFI_CMCWR,
+                               X_SWIFI_CNSTC_YEAR,
+                               X_SWIFI_INOUT_DOOR,
+                               X_SWIFI_REMARS3,
+                               LAT,
+                               LNT,
+                               WORK_DTTM)
+        VALUES (#{X_SWIFI_MGR_NO},
+                #{X_SWIFI_WRDOFC},
+                #{X_SWIFI_MAIN_NM},
+                #{X_SWIFI_ADRES1},
+                #{X_SWIFI_ADRES2},
+                #{X_SWIFI_INSTL_FLOOR},
+                #{X_SWIFI_INSTL_TY},
+                #{X_SWIFI_INSTL_MBY},
+                #{X_SWIFI_SVC_SE},
+                #{X_SWIFI_CMCWR},
+                #{X_SWIFI_CNSTC_YEAR},
+                #{X_SWIFI_INOUT_DOOR},
+                #{X_SWIFI_REMARS3},
+                #{LAT},
+                #{LNT},
+                #{WORK_DTTM})
+    </insert>
+
+    <select id="selectAll" resultMap="wifiVO">
+        SELECT *
+        FROM wifi_info
+    </select>
+
+    <select id="selectOne" parameterType="int" resultMap="wifiVO">
+        SELECT *
+        FROM wifi_info
+        WHERE wifi_id = #{wifi_id}
+    </select>
+
+    <insert id="insertHistory" parameterType="kr.co.mission.dto.HistoryDTO">
+        INSERT INTO history(h_x, h_y, h_date)
+        VALUES (#{h_x}, #{h_y}, #{h_date})
+    </insert>
+
+    <select id="selectAllHistory" resultMap="historyVO">
+        SELECT *
+        FROM history
+    </select>
+
+
+    <insert id="insertBookmarkGroup" parameterType="String">
+        INSERT INTO bookmark_group(gr_name)
+        VALUES (#{gr_name})
+    </insert>
+
+    <delete id="removeBookmarkGroup" parameterType="int">
+        DELETE
+        FROM bookmark_group
+        WHERE gr_id = #{gr_id}
+    </delete>
+
+    <update id="updateBookmarkGroup" parameterType="kr.co.mission.dto.BookmarkGroupDTO">
+        UPDATE bookmark_group
+        SET gr_name = #{gr_name}
+    </update>
+
+    <select id="selectAllBookmarkGroup" resultType="kr.co.mission.domain.BookmarkGroupVO">
+        SELECT *
+        FROM bookmark_group
+    </select>
+
+    <insert id="insertBookmark" parameterType="map">
+        INSERT INTO bookmark(gr_id, wifi_id)
+        VALUES (#{gr_id}, #{wifi_id})
+    </insert>
+
+    <delete id="removeBookmark" parameterType="map">
+        DELETE
+        FROM bookmark
+        WHERE gr_id = #{gr_id}
+          AND wifi_id = #{wifi_id}
+    </delete>
+
+    <select id="selectAllByBookmark" parameterType="int" resultMap="wifiVO">
+        SELECT w.wifi_id,
+               w.X_SWIFI_MGR_NO,
+               w.X_SWIFI_WRDOFC,
+               w.X_SWIFI_MAIN_NM,
+               w.X_SWIFI_ADRES1,
+               w.X_SWIFI_ADRES2,
+               w.X_SWIFI_INSTL_FLOOR,
+               w.X_SWIFI_INSTL_TY,
+               w.X_SWIFI_INSTL_MBY,
+               w.X_SWIFI_SVC_SE,
+               w.X_SWIFI_CMCWR,
+               w.X_SWIFI_CNSTC_YEAR,
+               w.X_SWIFI_INOUT_DOOR,
+               w.X_SWIFI_REMARS3,
+               w.LAT,
+               w.LNT,
+               w.WORK_DTTM
+
+        FROM wifi_info w
+        JOIN bookmark b ON w.wifi_id = b.wifi_id
+        WHERE b.gr_id = #{gr_id}
+    </select>
+</mapper>
