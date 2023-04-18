@@ -38,7 +38,6 @@
             </div>
             <div class="col-sm-3">
                 <select class="custom-select-sm d-block w-100 d-inline" id="select_gr_id" required>
-                    <option>Choose</option>
                     <c:forEach var="bookmark" items="${bookmarkList}">
                         <option value="${bookmark.gr_id}">${bookmark.gr_name}</option>
                     </c:forEach>
