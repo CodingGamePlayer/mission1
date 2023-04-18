@@ -10,6 +10,7 @@ import kr.co.mission.domain.WifiVO;
 import kr.co.mission.dto.BookmarkGroupDTO;
 import kr.co.mission.dto.HistoryDTO;
 import kr.co.mission.dto.WifiDTO;
+import kr.co.mission.dto.WifiJSON;
 import kr.co.mission.mapper.WifiMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -58,8 +59,8 @@ public class WifiServiceImp implements WifiService {
 
             for (int j = 1; j < jsonArray.length(); j++) {
                 JSONObject rowObject = jsonArray.getJSONObject(j);
-                WifiDTO wifiDTO = gson.fromJson(rowObject.toString(), WifiDTO.class);
-                wifiMapper.insert(wifiDTO);
+                WifiJSON wifiJSON = gson.fromJson(rowObject.toString(), WifiJSON.class);
+                wifiMapper.insert(wifiJSON);
             }
 
         }

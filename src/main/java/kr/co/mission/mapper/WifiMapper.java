@@ -6,13 +6,14 @@ import kr.co.mission.domain.WifiVO;
 import kr.co.mission.dto.BookmarkGroupDTO;
 import kr.co.mission.dto.HistoryDTO;
 import kr.co.mission.dto.WifiDTO;
+import kr.co.mission.dto.WifiJSON;
 
 import java.util.List;
 import java.util.Map;
 
 public interface WifiMapper {
 
-    void insert(WifiDTO wifiDTO);
+    void insert(WifiJSON wifiJSON);
 
     List<WifiVO> selectAll();
 

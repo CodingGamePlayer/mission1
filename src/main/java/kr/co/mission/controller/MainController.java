@@ -28,7 +28,7 @@ public class MainController {
     @ResponseBody
     public ResponseEntity callWifiInfo() throws IOException {
 
-//        wifiService.registerDB();
+        wifiService.registerDB();
 
         return ResponseEntity.status(HttpStatus.OK).body(wifiService.getTotalNumber());
     }
