@@ -68,7 +68,7 @@
                         </button>
                         <button class="btn btn-primary btn-sm mx-1" onclick="openPopup()">WiFi 정보 불러오기</button>
                         <a class="btn btn-facebook btn-sm mx-1" href="/history">History 보기</a>
-                        <a class="btn btn-facebook btn-sm mx-1" href="/bookmark">북마크 보기</a>
+                        <a class="btn btn-facebook btn-sm mx-1" href="/bookmark?gr_id=0">북마크 보기</a>
 
 
                         <script>
@@ -124,16 +124,16 @@
                             <table class="table table-bordered table-hover text-sm-center">
                                 <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>거리(km)</th>
                                     <th>관리번호</th>
                                     <th>자치구</th>
                                     <th>와이파이명</th>
                                     <th>도로명주소</th>
                                     <th>상세주소</th>
-                                    <th>설치위치(층)</th>
+                                    <th>설치 위치 (층)</th>
                                     <th>설치유형</th>
-                                    <th>설치기관</th>
-                                    <th>서비스구분</th>
+                                    <th>설치<br>기관</th>
+                                    <th>서비스<br>구분</th>
                                     <th>망종류</th>
                                     <th>설치년도</th>
                                     <th>실내외구분</th>
@@ -168,7 +168,7 @@
 
                                 <c:forEach var="wifi" items="${wifiList}">
                                         <tr>
-                                            <td>${wifi.wifi_id}</td>
+                                            <td>${(wifi.distance * 100) / 100}</td>
                                             <td>${wifi.no}</td>
                                             <td>${wifi.wrdofc}</td>
                                             <td><a href="#" onclick="detail(${wifi.wifi_id})">${wifi.nm}</a></td>

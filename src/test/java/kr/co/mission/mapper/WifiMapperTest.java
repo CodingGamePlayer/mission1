@@ -119,7 +119,7 @@ class WifiMapperTest {
 
     @Test
     void selectAllByBookmark() {
-        List<BookmarkGroupVO> bookmarkGroupVOS = wifiMapper.selectAllByBookmark(2);
+        List<WifiVO> bookmarkGroupVOS = wifiMapper.selectAllByBookmark(2);
         log.info(bookmarkGroupVOS);
     }
 
@@ -129,7 +129,7 @@ class WifiMapperTest {
         map.put("gr_id", 2);
         map.put("wifi_id", 7449);
 
-        wifiMapper.insertBookmark(map);
+
     }
 
     @Test

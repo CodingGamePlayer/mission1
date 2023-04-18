@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class WifiVO {
     private int wifi_id;
+    private int bm_id;
     private String no; // 관리번호
     private String wrdofc;
     private String nm;

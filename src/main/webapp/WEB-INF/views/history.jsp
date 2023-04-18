@@ -66,9 +66,9 @@
                         </c:if>
                         <button class="btn btn-primary btn-sm mx-1" id="get-location-btn" onclick="">주변 WiFi 정보 보기
                         </button>
-                        <button class="btn btn-primary btn-sm mx-1" onclick="openPopup()">WiFi정보 불러오기</button>
-                        <button class="btn btn-facebook btn-sm mx-1">History 보기</button>
-                        <button class="btn btn-facebook btn-sm mx-1">북마크 보기</button>
+                        <button class="btn btn-primary btn-sm mx-1" onclick="openPopup()">WiFi 정보 불러오기</button>
+                        <a class="btn btn-facebook btn-sm mx-1" href="/history">History 보기</a>
+                        <a class="btn btn-facebook btn-sm mx-1" href="/bookmark?gr_id=0">북마크 보기</a>
 
 
                         <script>

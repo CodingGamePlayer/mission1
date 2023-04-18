@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class WifiDTO {
     private int wifi_id;
+    private int bm_id;
+    private double distance;
     private String no; // 관리번호
     private String wrdofc;
     private String nm;

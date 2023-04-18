@@ -32,13 +32,47 @@
 <!-- Page Wrapper -->
 <div class="card">
     <div class="card-header">
-        <span class="text-center text-primary font-weight-bold">WiFi정보 상세보기</span>
-        <a href="#" class="btn btn-primary btn-icon-split">
+        <div class="row">
+            <div class="col-sm-3 d-flex align-items-center">
+                <span class="text-center text-primary text-lg font-weight-bold">WiFi정보 상세보기</span>
+            </div>
+            <div class="col-sm-3">
+                <select class="custom-select-sm d-block w-100 d-inline" id="select_gr_id" required>
+                    <option>Choose</option>
+                    <c:forEach var="bookmark" items="${bookmarkList}">
+                        <option value="${bookmark.gr_id}">${bookmark.gr_name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <a href="#" class="btn btn-primary btn-icon-split btn-sm" onclick="addBookmark()">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
-            <span class="text">Split Button Primary</span>
-        </a>
+                    <span class="text">북마크에 추가</span>
+                </a>
+            </div>
+        </div>
+
+        <script>
+            function addBookmark() {
+                let wifi_id = ${param.wifi_id};
+                let gr_id = document.getElementById('select_gr_id').value;
+
+                console.log(wifi_id + " " + gr_id);
+
+                const url = "/bookmark/insert?wifi_id=" + wifi_id + "&gr_id=" + gr_id;
+                console.log(url)
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=UTF-8'
+                    }
+                }).then(response => {
+                    if (response.ok) alert('등록이 되었습니다.');
+                }).catch(error => alert(error))
+            }
+        </script>
 
     </div>
     <div class="card-body">
@@ -113,8 +147,6 @@
                 <input type="text" class="form-control" id="wifi_dttm" value="${wifi.dttm}" disabled>
             </div>
             <hr class="mb-4">
-
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
         </form>
 
     </div>

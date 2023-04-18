@@ -67,13 +67,11 @@ public class WifiServiceImp implements WifiService {
 
     @Override
     public List<WifiDTO> findWifi(String data) {
-        float lnt = Float.parseFloat(data.split(" ")[1]);
-        float lat = Float.parseFloat(data.split(" ")[0]);
+        double lnt = Double.parseDouble(data.split(" ")[1]);
+        double lat = Double.parseDouble(data.split(" ")[0]);
         List<WifiDTO> list = new ArrayList<>();
 
-        PriorityQueue<WifiDTO> pq = new PriorityQueue<>(((o1, o2) ->
-                (int) ((Math.abs(Float.parseFloat(o1.getLnt()) - lnt) + Math.abs(Float.parseFloat(o1.getLat()) - lat)) -
-                        (Math.abs(Float.parseFloat(o2.getLnt()) - lnt) + Math.abs(Float.parseFloat(o2.getLat()) - lat)))));
+        PriorityQueue<WifiDTO> pq = new PriorityQueue<>(((o1, o2) -> (int) (o1.getDistance() - o2.getDistance())));
 
         List<WifiDTO> collect = wifiMapper.selectAll()
                 .stream()
@@ -81,10 +79,12 @@ public class WifiServiceImp implements WifiService {
                 .collect(Collectors.toList());
 
         for (int i = 0; i < collect.size(); i++) {
-            pq.offer(collect.get(i));
+            WifiDTO wifiDTO = collect.get(i);
+            wifiDTO.setDistance(distance(lat, lnt, Double.parseDouble(wifiDTO.getLat()), Double.parseDouble(wifiDTO.getLnt())));
+            pq.offer(wifiDTO);
         }
 
-        System.out.println(pq.size());
+
         for (int i = 0; i < 20; i++) {
             list.add(pq.poll());
         }
@@ -93,6 +93,18 @@ public class WifiServiceImp implements WifiService {
         return list;
     }
 
+    public double distance(double lat1, double lon1, double lat2, double lon2) {
+        double R = 6372.8; // 지구 반지름
+
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double distance = R * c;
+        return Math.round(distance * 100.0) / 100.0;
+    }
     @Override
     public JSONObject makeAPIUrl(int start, int end) throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");

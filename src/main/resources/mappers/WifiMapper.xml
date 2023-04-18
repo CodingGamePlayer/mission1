@@ -6,6 +6,7 @@
 
     <resultMap id="wifiVO" type="kr.co.mission.domain.WifiVO">
         <id property="wifi_id" column="wifi_id"/>
+        <result property="bm_id" column="bm_id"/>
         <result property="no" column="X_SWIFI_MGR_NO"/>
         <result property="wrdofc" column="X_SWIFI_WRDOFC"/>
         <result property="nm" column="X_SWIFI_MAIN_NM"/>
@@ -101,7 +102,8 @@
 
     <update id="updateBookmarkGroup" parameterType="kr.co.mission.dto.BookmarkGroupDTO">
         UPDATE bookmark_group
-        SET gr_name = #{gr_name}
+        SET gr_name = #{gr_name} WHERE gr_id = #{gr_id}
+
     </update>
 
     <select id="selectAllBookmarkGroup" resultType="kr.co.mission.domain.BookmarkGroupVO">
@@ -117,12 +119,12 @@
     <delete id="removeBookmark" parameterType="map">
         DELETE
         FROM bookmark
-        WHERE gr_id = #{gr_id}
-          AND wifi_id = #{wifi_id}
+        WHERE bm_id = #{bm_id}
     </delete>
 
     <select id="selectAllByBookmark" parameterType="int" resultMap="wifiVO">
-        SELECT w.wifi_id,
+        SELECT b.bm_id,
+               w.wifi_id,
                w.X_SWIFI_MGR_NO,
                w.X_SWIFI_WRDOFC,
                w.X_SWIFI_MAIN_NM,
@@ -141,7 +143,7 @@
                w.WORK_DTTM
 
         FROM wifi_info w
-        JOIN bookmark b ON w.wifi_id = b.wifi_id
+                 JOIN bookmark b ON w.wifi_id = b.wifi_id
         WHERE b.gr_id = #{gr_id}
     </select>
 </mapper>

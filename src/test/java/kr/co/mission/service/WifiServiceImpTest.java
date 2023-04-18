@@ -38,9 +38,9 @@ class WifiServiceImpTest {
     @Test
     void findWifi() {
 
-        List<WifiDTO> wifi = wifiService.findWifi("127.11037 37.604355");
+        List<WifiDTO> wifi = wifiService.findWifi("127.0292881 37.2518649");
 
-        log.info(wifi);
+        wifi.forEach(wifiDTO -> log.info(wifiDTO));
 
     }
 }
