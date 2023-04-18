@@ -83,6 +83,10 @@
         VALUES (#{h_x}, #{h_y}, #{h_date})
     </insert>
 
+    <delete id="deleteHistory" parameterType="int">
+        DELETE FROM history WHERE h_id = #{h_id}
+    </delete>
+
     <select id="selectAllHistory" resultMap="historyVO">
         SELECT *
         FROM history

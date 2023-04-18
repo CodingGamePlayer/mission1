@@ -53,6 +53,13 @@ public class MainController {
         model.addAttribute("historyList", wifiService.selectAllHistory());
     }
 
+    @GetMapping("/history/delete/{h_id}")
+    public String deleteHistory(@PathVariable int h_id) {
+        wifiService.deleteHistory(h_id);
+
+        return "redirect:/history";
+    }
+
     @GetMapping("/")
     public String main() {
         return "list";

@@ -149,6 +149,11 @@ public class WifiServiceImp implements WifiService {
     }
 
     @Override
+    public void deleteHistory(int h_id) {
+        wifiMapper.deleteHistory(h_id);
+    }
+
+    @Override
     public List<HistoryDTO> selectAllHistory() {
         return wifiMapper.selectAllHistory().stream()
                 .map(vo -> modelMapper.map(vo, HistoryDTO.class))

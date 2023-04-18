@@ -22,6 +22,8 @@ public interface WifiMapper {
 
     List<HistoryVO> selectAllHistory();
 
+    void deleteHistory(int h_id);
+
     void insertBookmarkGroup(String gr_name);
 
     void removeBookmarkGroup(int gr_id);

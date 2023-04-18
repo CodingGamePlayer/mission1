@@ -19,6 +19,7 @@ public interface WifiService {
     List<WifiDTO> findWifi(String data);
     WifiDTO selectOne(int wifi_id);
     void insertHistory(String data);
+    void deleteHistory(int h_id);
     List<HistoryDTO> selectAllHistory();
     void insertBookmarkGroup(String gr_name);
     void removeBookmarkGroup(int gr_id);

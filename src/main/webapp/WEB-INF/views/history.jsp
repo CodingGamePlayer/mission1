@@ -129,6 +129,7 @@
                                 <th>X좌표</th>
                                 <th>Y좌표</th>
                                 <th>검색시간</th>
+                                <th>비고</th>
                             </tr>
                             </thead>
                             <tfoot class="text-sm-center">
@@ -137,6 +138,7 @@
                                 <th>X좌표</th>
                                 <th>Y좌표</th>
                                 <th>검색시간</th>
+                                <th>비고</th>
                             </tr>
                             </tfoot>
                             <tbody id="table-data-area">
@@ -146,6 +148,7 @@
                                     <td>${item.h_x}</td>
                                     <td>${item.h_y}</td>
                                     <td>${item.h_date}</td>
+                                    <td><a href="/history/delete/${item.h_id}" >삭제</a></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
